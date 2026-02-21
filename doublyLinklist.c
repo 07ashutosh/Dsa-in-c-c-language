@@ -40,7 +40,27 @@ void insEnd(int d){
 }
 
 void insSpecific(int af, int d){
-    
+    nn= (struct node *)malloc(sizeof(struct node));
+    nn ->data = d;
+    if(start == NULL){
+        printf("underflow");
+
+    }else{
+        temp = start;
+        while(temp !=NULL){
+            if(temp->data ==af){
+                nn->next = temp->next;
+                nn->prev =temp;
+                if(temp->next != NULL){
+                    temp->next->prev = nn;
+                }
+                temp->next = nn;
+                break;
+
+            }
+            temp = temp->next;
+              }
+    }
 }
 
 
@@ -60,5 +80,6 @@ int main(){
     insBeg(2);
     insBeg(1);
     insEnd(6);
+    insSpecific(3,8);
     traveral();
 }
