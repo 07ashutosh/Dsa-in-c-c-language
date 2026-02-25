@@ -4,7 +4,7 @@
 struct node{
     int data;
     struct node *next, *prev;
-} *start = NULL, *nn, *temp,*tail,*loc;
+} *start = NULL, *nn, *temp,*tail = NULL,*loc;
 
 void insBeg(int d){
     nn = (struct node *)malloc(sizeof(struct node));
@@ -63,6 +63,50 @@ void insSpecific(int af, int d){
     }
 }
 
+void delBeg(){
+    if(start == NULL){
+        printf("underflow");
+    }else{
+        temp = start;
+        start = temp->next;
+        temp ->next = NULL;
+        start->prev= NULL;
+        free(temp);
+    }
+}
+
+void delEnd(){
+    if(start == NULL){
+        printf("underflow");
+    }else{
+        temp = tail;
+        tail = temp->prev;
+        tail->next = NULL;
+        free(temp);
+    }
+}
+
+void delSpecfic(int d){
+    if(start == NULL){
+        printf("underflow");
+    }else{
+        temp = start;
+        while (temp != NULL){
+            if(temp->data == d){
+            temp ->next ->prev= temp ->prev;
+            temp->prev->next= temp->next;
+            free(temp);
+            break;
+            }
+            temp = temp->next;
+        }
+        
+
+    }
+}
+
+
+
 
 
 void traveral(){
@@ -81,5 +125,8 @@ int main(){
     insBeg(1);
     insEnd(6);
     insSpecific(3,8);
+    delBeg();
+    delEnd();
+    delSpecfic(8);
     traveral();
 }
