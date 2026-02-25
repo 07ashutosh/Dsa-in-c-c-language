@@ -63,6 +63,59 @@ void insSpecfic(int af, int d){
     }
 }
 
+void delBeg(){
+    if(start == NULL){
+        printf("underflow");
+    }else{
+        temp = start;
+        if(temp->next == start){
+            start = NULL;
+            tail = NULL;
+            free(temp);
+        }else{
+            start = temp->next;
+            start->prev= tail;
+            tail->next =start;
+            free(temp);
+        }
+    }
+}
+
+void delEnd(){
+    if(start == NULL){
+        printf("underflow");
+    }else{
+        temp = tail;
+        if(temp->prev == tail){
+            start = NULL;
+            tail == NULL;
+            free(temp);
+        }else{
+            tail = temp->prev;
+            tail->next = start;
+            start->prev = tail;
+            free(temp);
+        }
+    }
+}
+
+void delSpecfic(int d){
+    if(start == NULL){
+        printf("underflow");
+    }else{
+        temp = start;
+        while (temp != NULL){
+            if(temp->data == d){
+                temp ->next ->prev= temp ->prev;
+                temp->prev->next= temp->next;
+                free(temp);
+            }
+                break;
+            }
+            temp = temp->next;
+        }
+}
+
 void traversal(){
     if(start != NULL){
         temp = start;
@@ -79,5 +132,8 @@ int main(){
     insBeg(4);
     insEnd(0);
     insSpecfic(2,3);
+    delBeg();
+    delEnd();
+    delSpecfic(3);
     traversal();
 }
